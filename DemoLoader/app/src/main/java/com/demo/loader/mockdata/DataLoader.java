@@ -1,4 +1,4 @@
-package com.demo.loader.demoloader.mockdata;
+package com.demo.loader.mockdata;
 
 import android.content.Context;
 import android.os.CancellationSignal;

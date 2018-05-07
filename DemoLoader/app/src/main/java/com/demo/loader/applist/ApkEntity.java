@@ -1,4 +1,4 @@
-package com.demo.loader.demoloader.applist;
+package com.demo.loader.applist;
 
 import android.graphics.drawable.Drawable;
 
