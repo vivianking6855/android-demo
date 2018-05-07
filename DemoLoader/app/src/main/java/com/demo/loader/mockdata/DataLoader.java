@@ -2,18 +2,18 @@ package com.demo.loader.mockdata;
 
 import android.content.Context;
 import android.os.CancellationSignal;
+import android.os.SystemClock;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.AsyncTaskLoader;
 import android.support.v4.os.OperationCanceledException;
+import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class DataLoader extends AsyncTaskLoader<List<MockEntity>> {
     private List<MockEntity> mData;
-
-    CancellationSignal mCancellationSignal;
 
     public DataLoader(@NonNull Context context) {
         super(context);
@@ -22,23 +22,22 @@ public class DataLoader extends AsyncTaskLoader<List<MockEntity>> {
     @Nullable
     @Override
     public List<MockEntity> loadInBackground() {
-        synchronized (this) {
-            if (isLoadInBackgroundCanceled() || getContext() == null) {
-                throw new OperationCanceledException();
+        Log.d("vv", "data loadInBackground");
+
+        for (int i = 0; i < 10; i++) {
+            SystemClock.sleep(1000);
+            synchronized (this) {
+                if (isLoadInBackgroundCanceled()) {
+                    Log.d("vv", "isLoadInBackgroundCanceled ");
+                    break;
+                }
             }
-            mCancellationSignal = new CancellationSignal();
         }
 
-        try {
-            if (mData == null) {
-                mData = new ArrayList<>();
-            }
-            mockData();
-        } finally {
-            synchronized (this) {
-                mCancellationSignal = null;
-            }
+        if (mData == null) {
+            mData = new ArrayList<>();
         }
+        mockData();
 
         return mData;
     }
@@ -53,15 +52,19 @@ public class DataLoader extends AsyncTaskLoader<List<MockEntity>> {
     @Override
     protected void onStartLoading() {
         forceLoad();
+        Log.d("vv", "data onStartLoading");
     }
 
     @Override
     protected void onStopLoading() {
         cancelLoad();
+        Log.d("vv", "data onStopLoading");
+
     }
 
     @Override
     protected void onReset() {
         stopLoading();
+        Log.d("vv", "data onReset");
     }
 }

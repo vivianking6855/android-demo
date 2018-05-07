@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.demo.loader.R;
+import com.demo.loader.common.Const;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -32,4 +33,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // destroy all tasks
+        for (int id : Const.TASK_LIST){
+            getSupportLoaderManager().destroyLoader(id);
+        }
+    }
 }

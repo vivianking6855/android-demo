@@ -8,9 +8,11 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.demo.loader.R;
+import com.demo.loader.common.Const;
 import com.demo.loader.mockdata.DataListAdapter;
 import com.demo.loader.mockdata.DataLoader;
 import com.demo.loader.mockdata.MockEntity;
@@ -23,8 +25,6 @@ public class MockDataActivity extends AppCompatActivity {
     private Reference<MockDataActivity> mActivityRef;
 
     private DataListAdapter mAdapter;
-
-    private final int TASK_DATA_ID = 100;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,8 @@ public class MockDataActivity extends AppCompatActivity {
     }
 
     private void initData() {
-        getSupportLoaderManager().initLoader(TASK_DATA_ID, null, new DataLoaderCallback());
+        Log.d("vv", "data initData");
+        getSupportLoaderManager().initLoader(Const.TASK_DATA_ID, null, new DataLoaderCallback());
     }
 
 
